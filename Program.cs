@@ -7,31 +7,56 @@ namespace gary_garage
     {
         static void Main(string[] args)
         {
-            Cessna plane = new Cessna();
+            Zero fxs = new Zero();
             Zero fx = new Zero();
-            Tesla models = new Tesla();
-            Ram truck = new Ram();
+            Tesla modelS = new Tesla();
 
+            List<IElectricVehicles> electricVehicles = new List<IElectricVehicles>() {
+                fx, fxs, modelS
+               };
 
-            plane.Drive();
-            plane.Turn("Left");
-            plane.Stop();
-            Console.WriteLine();
+            Console.WriteLine("Electric Vehicles");
+            foreach (IElectricVehicles ev in electricVehicles)
+            {
+                Console.WriteLine($"{ev.CurrentChargePercentage}");
+            }
 
-            fx.Drive();
-            fx.Turn("Right");
-            fx.Stop();
-            Console.WriteLine();
+            foreach (IElectricVehicles ev in electricVehicles)
+            {
+                // This should charge the vehicle to 100%
+                ev.ChargeBattery();
+            }
 
-            models.Drive();
-            models.Turn("Left");
-            models.Stop();
-            Console.WriteLine();
+            foreach (IElectricVehicles ev in electricVehicles)
+            {
+                Console.WriteLine($"{ev.CurrentChargePercentage}");
+            }
 
-            truck.Drive();
-            truck.Turn("Right");
-            truck.Stop();
-            Console.WriteLine();
+            /***********************************************/
+
+            Ram ram = new Ram();
+            Cessna cessna150 = new Cessna();
+
+            List<IGasVehicles> gasVehicles = new List<IGasVehicles>() {
+                ram, cessna150
+              };
+
+            Console.WriteLine("Gas Vehicles");
+            foreach (IGasVehicles gv in gasVehicles)
+            {
+                Console.WriteLine($"{gv.CurrentTankPercentage}");
+            }
+
+            foreach (IGasVehicles gv in gasVehicles)
+            {
+                // This should completely refuel the gas tank
+                gv.RefuelTank();
+            }
+
+            foreach (IGasVehicles gv in gasVehicles)
+            {
+                Console.WriteLine($"{gv.CurrentTankPercentage}");
+            }
         }
     }
 }
